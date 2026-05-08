@@ -28,9 +28,10 @@
         var heading = $(this).attr('href');
         var scrollDistance = $(heading).offset().top;
 
-        $('html, body').animate({
-            scrollTop: scrollDistance + 'px'
-        }, Math.abs(window.pageYOffset - $(heading).offset().top) / 1);
+        window.scrollTo({
+            top: scrollDistance,
+            behavior: 'auto'
+        });
 
         // Hide the menu once clicked if mobile
         if ($('header').hasClass('active')) {

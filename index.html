@@ -37,6 +37,11 @@
             justify-content: center;
             z-index: 1000;
             pointer-events: none;
+            transition: transform 0s ease;
+        }
+
+        header.hide {
+            transform: translateY(-100px);
         }
 
         .appbar {
@@ -135,6 +140,25 @@
             padding: 6px 4px 18px 0;
         }
 
+        /* Centrer le heading de la section about */
+        #about .heading {
+            display: block;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #about .heading:after {
+            left: 0;
+            right: 0;
+        }
+
+        /* Offset pour les ancres afin de ne pas être cachées par l'appbar fixe */
+        #about, #experience, #education, #projects, #skills, #contact {
+            padding-top: 50px;
+            margin-top: -50px;
+        }
+
         @media only screen and (max-width: 768px) {
             header {
                 top: 0;
@@ -177,6 +201,108 @@
                 padding: 13px 14px;
             }
         }
+
+        /* Styles du carrousel */
+        .carousel-wrapper {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .carousel-slide {
+            display: none;
+            animation: fadeInOut 0.5s ease-in-out;
+        }
+
+        .carousel-slide.active {
+            display: block;
+        }
+
+        @keyframes fadeInOut {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(52, 152, 219, 0.8);
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 18px;
+            z-index: 10;
+            transition: background 0.3s ease;
+        }
+
+        .carousel-button:hover {
+            background: rgba(52, 152, 219, 1);
+        }
+
+        .carousel-prev {
+            left: -60px;
+        }
+
+        .carousel-next {
+            right: -60px;
+        }
+
+        .carousel-dots {
+            text-align: center;
+            padding: 20px 0 0 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .dot {
+            height: 12px;
+            width: 12px;
+            margin: 0 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .dot.active {
+            background-color: #3498db;
+        }
+
+        .dot:hover {
+            background-color: #555;
+        }
+
+        @media only screen and (max-width: 768px) {
+            .carousel-button {
+                padding: 10px 12px;
+                font-size: 14px;
+            }
+
+            .carousel-prev {
+                left: 5px;
+            }
+
+            .carousel-next {
+                right: 5px;
+            }
+        }
     </style>
 </head>
 
@@ -194,10 +320,10 @@
             <ul id="menu">
                 <li id="mobile-menu-close"><span>Fermer</span> <i class="fa fa-times" aria-hidden="true"></i></li>
                 <li><a href="#about">À Propos</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
+                <li><a href="#experience">Expérience</a></li>
+                <li><a href="#education">Éducation</a></li>
+                <li><a href="#projects">Projets</a></li>
+                <li><a href="#skills">Compétences</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
@@ -223,7 +349,7 @@
     </div>
 
     <div id="experience" class="background-alt">
-        <h2 class="heading">Experience</h2>
+        <h2 class="heading">Expérience</h2>
         <div id="experience-timeline">
             <div data-date="2 mars 2026 – 17 avril 2026">
                 <h3>L'Approximatographe</h3>
@@ -239,7 +365,7 @@
     </div>
 
     <div id="education">
-        <h2 class="heading">Education</h2>
+        <h2 class="heading">Éducation</h2>
         <div class="education-block">
             <h3>Lycée Chevrollier</h3>
             <span class="education-date">2024 - 2025</span>
@@ -249,46 +375,130 @@
     </div>
 
     <div id="projects" class="background-alt">
-        <h2 class="heading">Projects</h2>
+        <h2 class="heading">Projets</h2>
         <div class="container">
-            <div class="row">
-
-                <div class="project shadow-large">
-                    <div class="project-image">
-                        <img src="images/project.jpg" alt="WordPress">
+            <div class="carousel-wrapper">
+                <div class="carousel-container">
+                    <div class="carousel-slide active">
+                        <div class="project shadow-large">
+                            <div class="project-image">
+                                <img src="images/project.jpg" alt="WordPress">
+                            </div>
+                            <div class="project-info">
+                                <h3>Site vitrine sous WordPress</h3>
+                                <p>Création d'un site vitrine complet avec thème personnalisé et plugins, permettant de présenter une entreprise fictive avec ses services, contact et galerie d'images.</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="project-info">
-                        <h3>Site vitrine sous WordPress</h3>
-                        <p>Création d'un site vitrine complet avec thème personnalisé et plugins, permettant de présenter une entreprise fictive avec ses services, contact et galerie d'images.</p>
+
+                    <div class="carousel-slide">
+                        <div class="project shadow-large">
+                            <div class="project-image">
+                                <img src="images/project.jpg" alt="AngersScoot">
+                            </div>
+                            <div class="project-info">
+                                <h3>Application AngersScoot - C# WinForms</h3>
+                                <p>Application de gestion de trottinettes pour une entreprise fictive angevine. Fonctionnalités : création d'utilisateurs, suivi d'utilisation, interface intuitive sous Windows Forms.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-slide">
+                        <div class="project shadow-large">
+                            <div class="project-image">
+                                <img src="images/project.jpg" alt="Recherche par numéro">
+                            </div>
+                            <div class="project-info">
+                                <h3>Recherche établissements par numéro - JavaScript</h3>
+                                <p>Script JavaScript permettant de rechercher des mairies et établissements scolaires à partir de numéros de téléphone, en utilisant des APIs publiques ouvertes.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-slide">
+                        <div class="project shadow-large">
+                            <div class="project-image">
+                                <img src="images/project.jpg" alt="CDS49">
+                            </div>
+                            <div class="project-info">
+                                <h3>Application CDS49 - C# WinForms</h3>
+                                <p>Application de gestion pour l'auto école CDS49, développée en C# avec l'interface Windows Forms.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-slide">
+                        <div class="project shadow-large">
+                            <div class="project-image">
+                                <img src="images/project.jpg" alt="Larablog">
+                            </div>
+                            <div class="project-info">
+                                <h3>Larablog - Laravel</h3>
+                                <p>Application de gestion pour le blog Larablog, développée en Laravel.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-slide">
+                        <div class="project shadow-large">
+                            <div class="project-image">
+                                <img src="images/project.jpg" alt="Hackathon">
+                            </div>
+                            <div class="project-info">
+                                <h3>Hackathon Métiers du numérique - Laravel</h3>
+                                <p>Participation à un hackathon sur le thème des métiers du numérique, où nous avons développé une application en Laravel afin de mettre en place un service permettant de présenter les métiers du numérique en s'appuyant sur des API publiques.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-slide">
+                        <div class="project shadow-large">
+                            <div class="project-image">
+                                <img src="images/project.jpg" alt="CaleSons">
+                            </div>
+                            <div class="project-info">
+                                <h3>Festival CaleSons - Flutter Dart, C# MAUI</h3>
+                                <p>Application de gestion pour le festival CaleSons, développée en Flutter Dart et C# MAUI.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-slide">
+                        <div class="project shadow-large">
+                            <div class="project-image">
+                                <img src="images/project.jpg" alt="L'Approximatographe">
+                            </div>
+                            <div class="project-info">
+                                <h3>Gestion des session de jeux pour L'Approximatographe - PythonCustomTkinter</h3>
+                                <p>Application de gestion pour l'association L'Approximatographe, développée en Python avec l'interface CustomTkinter.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="project shadow-large">
-                    <div class="project-image">
-                        <img src="images/project.jpg" alt="AngersScoot">
-                    </div>
-                    <div class="project-info">
-                        <h3>Application AngersScoot - C# WinForms</h3>
-                        <p>Application de gestion de trottinettes pour une entreprise fictive angevine. Fonctionnalités : création d'utilisateurs, suivi d'utilisation, géolocalisation, interface intuitive sous Windows Forms.</p>
-                    </div>
-                </div>
+                <button class="carousel-button carousel-prev" onclick="moveCarousel(-1)">
+                    <i class="fa fa-chevron-left"></i>
+                </button>
+                <button class="carousel-button carousel-next" onclick="moveCarousel(1)">
+                    <i class="fa fa-chevron-right"></i>
+                </button>
 
-                <div class="project shadow-large">
-                    <div class="project-image">
-                        <img src="images/project.jpg" alt="Recherche par numéro">
-                    </div>
-                    <div class="project-info">
-                        <h3>Recherche établissements par numéro - JavaScript</h3>
-                        <p>Script JavaScript permettant de rechercher des mairies et établissements scolaires à partir de numéros de téléphone, en utilisant des APIs publiques ouvertes.</p>
-                    </div>
+                <div class="carousel-dots">
+                    <span class="dot active" onclick="currentSlide(0)"></span>
+                    <span class="dot" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                    <span class="dot" onclick="currentSlide(4)"></span>
+                    <span class="dot" onclick="currentSlide(5)"></span>
+                    <span class="dot" onclick="currentSlide(6)"></span>
+                    <span class="dot" onclick="currentSlide(7)"></span>
                 </div>
-
             </div>
         </div>
     </div>
 
     <div id="skills">
-        <h2 class="heading">Skills</h2>
+        <h2 class="heading">Compétences</h2>
         <ul>
             <li>HTML/CSS</li>
             <li>JavaScript</li>
@@ -335,7 +545,67 @@
     </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="js/scripts.min.js"></script>
+    <script src="js/scripts.js"></script>
+    
+    <script>
+        // Gestion du carrousel
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            // Boucle les indices
+            if (index >= totalSlides) {
+                currentSlideIndex = 0;
+            } else if (index < 0) {
+                currentSlideIndex = totalSlides - 1;
+            } else {
+                currentSlideIndex = index;
+            }
+
+            // Cacher tous les slides
+            slides.forEach(slide => slide.classList.remove('active'));
+            
+            // Afficher le slide actuel
+            slides[currentSlideIndex].classList.add('active');
+
+            // Mettre à jour les points
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[currentSlideIndex].classList.add('active');
+        }
+
+        function moveCarousel(direction) {
+            showSlide(currentSlideIndex + direction);
+        }
+
+        function currentSlide(index) {
+            showSlide(index);
+        }
+
+        // Gestion de l'affichage/masquage de l'appbar au scroll
+        let lastScrollTop = 0;
+        const header = document.querySelector('header');
+        
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.scrollY || document.documentElement.scrollTop;
+            
+            // Si on est presque en haut de la page, afficher l'appbar
+            if (scrollTop < 50) {
+                header.classList.remove('hide');
+            }
+            // Si on scroll vers le bas rapidement, cacher l'appbar
+            else if (scrollTop > lastScrollTop) {
+                header.classList.add('hide');
+            }
+            // Si on scroll vers le haut, afficher l'appbar
+            else {
+                header.classList.remove('hide');
+            }
+            
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        });
+    </script>
 </body>
 
 </html>
