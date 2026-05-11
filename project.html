@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html class="no-js" lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Projet - Sam Le Valégant</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <style>
+        header {
+            position: fixed;
+            top: 18px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            z-index: 1000;
+            pointer-events: none;
+            transition: transform 0s ease;
+        }
+
+        header.hide {
+            transform: translateY(-100px);
+        }
+
+        .appbar {
+            width: min(1060px, calc(100% - 36px));
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 10px 12px 10px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.88);
+            box-shadow: 0 18px 45px rgba(15, 39, 66, 0.2);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            pointer-events: auto;
+        }
+
+        .appbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #1f364d;
+            font-weight: 900;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .appbar-logo {
+            display: inline-flex;
+            width: 34px;
+            height: 34px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            color: #fff;
+            background: linear-gradient(135deg, #3498db, #1f6f9f);
+            box-shadow: 0 8px 18px rgba(31, 111, 159, 0.3);
+            font-size: 0.95em;
+            letter-spacing: 0;
+        }
+
+        header ul {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: transparent;
+            padding: 0;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        header li {
+            display: block;
+        }
+
+        header a {
+            color: #2f475f;
+            padding: 9px 13px;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+        }
+
+        header a:hover,
+        header a:focus {
+            color: #fff;
+            background: #3498db;
+            text-decoration: none;
+            transform: translateY(-1px);
+        }
+
+        .appbar-brand:hover,
+        .appbar-brand:focus {
+            color: #1f364d;
+            background: transparent;
+        }
+
+        #mobile-menu-open {
+            top: 16px;
+            right: 18px;
+            width: 44px;
+            height: 44px;
+            padding: 0;
+            color: #fff;
+            background: rgba(31, 54, 77, 0.88);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            box-shadow: 0 12px 28px rgba(15, 39, 66, 0.24);
+            line-height: 44px;
+            text-align: center;
+        }
+
+        #mobile-menu-close {
+            background: transparent;
+            color: #2f475f;
+            padding: 6px 4px 18px 0;
+        }
+
+        @media only screen and (max-width: 768px) {
+            header {
+                top: 0;
+                display: none;
+                align-items: stretch;
+                height: 100%;
+                padding: 18px;
+                background: rgba(12, 30, 48, 0.46);
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+            }
+
+            header.active {
+                display: flex;
+            }
+
+            .appbar {
+                width: 100%;
+                align-items: stretch;
+                justify-content: flex-start;
+                flex-direction: column;
+                gap: 18px;
+                padding: 18px;
+                overflow-y: auto;
+            }
+
+            header ul {
+                width: 100%;
+                height: auto;
+                flex-direction: column;
+                align-items: stretch;
+                overflow-y: visible;
+            }
+
+            #menu li {
+                margin-bottom: 6px;
+            }
+
+            header a {
+                padding: 13px 14px;
+            }
+        }
+
+        .project-detail {
+            padding: 100px 0 40px;
+        }
+
+        .project-detail .container {
+            max-width: 900px;
+        }
+
+        .project-hero {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .project-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-title {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .project-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .project-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+        }
+
+        .project-meta-item strong {
+            color: #2c3e50;
+        }
+
+        .project-description {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .project-section {
+            margin: 40px 0;
+        }
+
+        .project-section h3 {
+            color: #2c3e50;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .project-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .project-section li {
+            padding: 10px 0;
+            color: #555;
+            border-bottom: 1px solid #eee;
+        }
+
+        .project-section li:before {
+            content: "✓ ";
+            color: #3498db;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .project-technologies {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .tech-tag {
+            background: #3498db;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: #2980b9;
+            text-decoration: none;
+            color: white;
+        }
+
+        body {
+            background-color: #f4f4f4;
+        }
+
+        @media only screen and (max-width: 768px) {
+            .project-title {
+                font-size: 1.8em;
+            }
+
+            .project-hero {
+                height: 250px;
+            }
+
+            .project-meta {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <button id="mobile-menu-open" type="button" aria-label="Ouvrir le menu" title="Ouvrir le menu">
+        <i class="fa fa-bars" aria-hidden="true"></i>
+    </button>
+
+    <header>
+        <nav class="appbar" aria-label="Navigation principale">
+            <a class="appbar-brand" href="index.html" aria-label="Accueil">
+                <span class="appbar-logo">SL</span>
+                <span>Sam Le Valégant</span>
+            </a>
+            <ul id="menu">
+                <li id="mobile-menu-close"><span>Fermer</span> <i class="fa fa-times" aria-hidden="true"></i></li>
+                <li><a href="index.html#about">À Propos</a></li>
+                <li><a href="index.html#experience">Expérience</a></li>
+                <li><a href="index.html#education">Éducation</a></li>
+                <li><a href="index.html#projects">Projets</a></li>
+                <li><a href="index.html#skills">Compétences</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="project-detail">
+        <div class="container">
+            <a href="index.html#projects" class="back-button"><i class="fa fa-chevron-left"></i> Retour aux projets</a>
+            
+            <div class="project-hero">
+                <img id="projectImage" src="images/project.jpg" alt="Projet">
+            </div>
+
+            <h1 class="project-title" id="projectTitle">Titre du Projet</h1>
+
+            <div class="project-meta" id="projectMeta">
+            </div>
+
+            <div class="project-description" id="projectDescription">
+            </div>
+
+            <div class="project-section">
+                <h3>Fonctionnalités principales</h3>
+                <ul id="projectFeatures">
+                </ul>
+            </div>
+
+            <div class="project-section">
+                <h3>Technologie utilisée</h3>
+                <div class="project-technologies" id="projectTechnologies">
+                </div>
+            </div>
+
+            <div class="project-section">
+                <h3>À propos de ce projet</h3>
+                <p id="projectAbout"></p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-5 copyright">
+                    <p>Copyright &copy; <span id="current-year">2025</span> Sam Le Valégant</p>
+                </div>
+                <div class="col-sm-2 top">
+                    <span id="to-top">
+                        <i class="fa fa-chevron-up" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <div class="col-sm-5 social">
+                    <ul>
+                        <li><a href="https://github.com/SamLeValegant" target="_blank"><i class="fa fa-github"></i></a></li>
+                        <li><a href="https://www.linkedin.com/in/sam-undefined-03642a358/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/scripts.js"></script>
+
+    <script>
+        // Base de données des projets
+        const projects = [
+            {
+                id: 0,
+                title: "Site vitrine sous WordPress",
+                image: "images/project.jpg",
+                description: "Création d'un site vitrine complet avec thème personnalisé et plugins, permettant de présenter une entreprise fictive avec ses services, contact et galerie d'images.",
+                technologies: ["WordPress", "PHP", "CSS", "JavaScript"],
+                features: [
+                    "Thème WordPress personnalisé",
+                    "Intégration de plugins de gestion de contenu",
+                    "Formulaire de contact fonctionnel",
+                    "Galerie d'images dynamique",
+                    "Optimisation SEO",
+                    "Design responsive"
+                ],
+                about: "Ce projet m'a permis de maîtriser les fondamentaux de WordPress et de comprendre comment créer une présence en ligne professionnelle pour une entreprise. J'ai appris à personnaliser des thèmes, configurer des plugins et gérer le contenu efficacement."
+            },
+            {
+                id: 1,
+                title: "Application AngersScoot - C# WinForms",
+                image: "images/project.jpg",
+                description: "Application de gestion de trottinettes pour une entreprise fictive angevine. Fonctionnalités : création d'utilisateurs, suivi d'utilisation, interface intuitive sous Windows Forms.",
+                technologies: ["C#", "WinForms", "SQL Server"],
+                features: [
+                    "Création et gestion d'utilisateurs",
+                    "Suivi de l'utilisation des trottinettes",
+                    "Interface graphique intuitive",
+                    "Système de base de données intégré",
+                    "Gestion des tarifs et paiements",
+                    "Rapports statistiques"
+                ],
+                about: "Ce projet m'a initié au développement d'applications de bureau avec C# et WinForms. J'ai appris à concevoir une interface utilisateur fonctionnelle et à gérer une base de données complexe."
+            },
+            {
+                id: 2,
+                title: "Recherche établissements par numéro - JavaScript",
+                image: "images/project.jpg",
+                description: "Script JavaScript permettant de rechercher des mairies et établissements scolaires à partir de numéros de téléphone, en utilisant des APIs publiques ouvertes.",
+                technologies: ["JavaScript", "HTML", "CSS", "APIs REST"],
+                features: [
+                    "Recherche par numéro de téléphone",
+                    "Intégration d'APIs publiques",
+                    "Affichage des résultats en temps réel",
+                    "Interface utilisateur simple",
+                    "Gestion des erreurs",
+                    "Cache local des résultats"
+                ],
+                about: "Ce projet m'a permis de découvrir comment consommer des APIs REST et travailler avec des données publiques. J'ai compris l'importance de la gestion d'erreurs et de l'expérience utilisateur."
+            },
+            {
+                id: 3,
+                title: "Application CDS49 - C# WinForms",
+                image: "images/project.jpg",
+                description: "Application de gestion pour l'auto école CDS49, développée en C# avec l'interface Windows Forms.",
+                technologies: ["C#", "WinForms", "SQL Server", "ADO.NET"],
+                features: [
+                    "Gestion des élèves et moniteurs",
+                    "Planification des cours de conduite",
+                    "Suivi des résultats aux examens",
+                    "Génération de factures",
+                    "Gestion des horaires",
+                    "Archivage des données"
+                ],
+                about: "Cette application m'a permis d'appliquer mes connaissances en C# et WinForms dans un contexte professionnel réel. J'ai développé une expertise en gestion de données et création d'interfaces ergonomiques."
+            },
+            {
+                id: 4,
+                title: "Larablog - Laravel",
+                image: "images/project.jpg",
+                description: "Application de gestion pour le blog Larablog, développée en Laravel.",
+                technologies: ["Laravel", "PHP", "MySQL", "Blade"],
+                features: [
+                    "Système de gestion de contenu",
+                    "Création et édition d'articles",
+                    "Système de commentaires",
+                    "Gestion des catégories",
+                    "Authentification utilisateur",
+                    "Tableau de bord administrateur"
+                ],
+                about: "Larablog m'a initié au framework Laravel et aux bonnes pratiques du développement web moderne. J'ai appris l'architecture MVC, la validation de formulaires et la gestion d'authentification."
+            },
+            {
+                id: 5,
+                title: "Hackathon Métiers du numérique - Laravel",
+                image: "images/project.jpg",
+                description: "Participation à un hackathon sur le thème des métiers du numérique, où nous avons développé une application en Laravel afin de mettre en place un service permettant de présenter les métiers du numérique en s'appuyant sur des APIs publiques.",
+                technologies: ["Laravel", "PHP", "JavaScript", "APIs REST"],
+                features: [
+                    "Présentation des métiers du numérique",
+                    "Intégration d'APIs de contenu",
+                    "Système de filtrage et recherche",
+                    "Fiches descriptives complètes",
+                    "Système de recommandation",
+                    "Interface responsive"
+                ],
+                about: "Cette expérience de hackathon m'a montré comment travailler en équipe sous pression et livrer un MVP en peu de temps. J'ai appris l'importance de la collaboration et de la rapidité d'exécution."
+            },
+            {
+                id: 6,
+                title: "Festival CaleSons - Flutter Dart, C# MAUI",
+                image: "images/project.jpg",
+                description: "Application de gestion pour le festival CaleSons, développée en Flutter Dart et C# MAUI.",
+                technologies: ["Flutter", "Dart", "C#", "MAUI", "Firebase"],
+                features: [
+                    "Gestion du programme du festival",
+                    "Système de billetterie",
+                    "Notifications en temps réel",
+                    "Cartes interactive de l'événement",
+                    "Gestion des artistes et scènes",
+                    "Synchronisation multi-plateforme"
+                ],
+                about: "Ce projet m'a permis d'explorer le développement mobile avec Flutter et MAUI. J'ai découvert les défis du développement cross-plateforme et comment créer des expériences utilisateur fluides sur plusieurs appareils."
+            },
+            {
+                id: 7,
+                title: "Gestion des sessions de jeux pour L'Approximatographe - Python CustomTkinter",
+                image: "images/project.jpg",
+                description: "Application de gestion pour l'association L'Approximatographe, développée en Python avec l'interface CustomTkinter.",
+                technologies: ["Python", "CustomTkinter", "SQLite"],
+                features: [
+                    "Création et gestion des sessions de jeux",
+                    "Planification des événements",
+                    "Gestion des participantes",
+                    "Système d'inscription",
+                    "Génération de rapports",
+                    "Interface utilisateur moderne"
+                ],
+                about: "Ce projet m'a introduit à CustomTkinter et à la création d'interfaces GUI modernes en Python. J'ai appris à développer rapidement des applications de bureau tout en maintenant une bonne ergonomie."
+            }
+        ];
+
+        // Afficher le courant année
+        document.getElementById("current-year").textContent = new Date().getFullYear();
+
+        // Récupérer l'ID du projet depuis l'URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const projectId = parseInt(urlParams.get('id')) || 0;
+
+        // Afficher les données du projet
+        if (projectId >= 0 && projectId < projects.length) {
+            const project = projects[projectId];
+            
+            document.title = `${project.title} - Sam Le Valégant`;
+            document.getElementById("projectTitle").textContent = project.title;
+            document.getElementById("projectImage").src = project.image;
+            document.getElementById("projectDescription").textContent = project.description;
+            document.getElementById("projectAbout").textContent = project.about;
+
+            // Afficher les technologies
+            const techContainer = document.getElementById("projectTechnologies");
+            project.technologies.forEach(tech => {
+                const tag = document.createElement("span");
+                tag.className = "tech-tag";
+                tag.textContent = tech;
+                techContainer.appendChild(tag);
+            });
+
+            // Afficher les fonctionnalités
+            const featuresList = document.getElementById("projectFeatures");
+            project.features.forEach(feature => {
+                const li = document.createElement("li");
+                li.textContent = feature;
+                featuresList.appendChild(li);
+            });
+        }
+
+        // Gestion du menu mobile
+        const mobileMenuOpen = document.getElementById('mobile-menu-open');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+
+        if (mobileMenuOpen) {
+            mobileMenuOpen.addEventListener('click', function() {
+                document.querySelector('header').classList.add('active');
+                document.body.classList.add('active');
+            });
+        }
+
+        if (mobileMenuClose) {
+            mobileMenuClose.addEventListener('click', function() {
+                document.querySelector('header').classList.remove('active');
+                document.body.classList.remove('active');
+            });
+        }
+
+        // Gestion de l'affichage/masquage de l'appbar au scroll
+        let lastScrollTop = 0;
+        const header = document.querySelector('header');
+        
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.scrollY || document.documentElement.scrollTop;
+            
+            if (scrollTop < 50) {
+                header.classList.remove('hide');
+            }
+            else if (scrollTop > lastScrollTop) {
+                header.classList.add('hide');
+            }
+            else {
+                header.classList.remove('hide');
+            }
+            
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        });
+
+        // Scroll vers le haut
+        document.getElementById('to-top').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+
+</html>
